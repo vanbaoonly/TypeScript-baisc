@@ -88,6 +88,136 @@ II.
     console.log(">>> mess" ,mess)
   }
 
+-------------never-------
+            là 1 hàm không trả bất kì thứ gì 
+            function funname( mess:string):never{
+                console.log(mess)
+            }
+
+---------------Union----------------
+            // union có thể dùng : number , string, object , array...
+
+            // cách 1 :
+            // function AddNumberOrString(a: number | string, b: number | string) {
+            //cách 2 :
+            // có thể tạo 1 type ở ngoài và gán các kiểu dl tùy ý , giúp nhìn code ngắn ngọn
+            type Type = number | string;
+
+                function AddNumberOrString(a: Type, b: Type) {
+
+                    if (typeof a === "number" && typeof b === "number") {
+                        return a + b;
+                    } else if (typeof a === "string" && typeof b === "string") {
+                        return a.concat(b);
+                    }
+                    else {
+                        return "all number or string";
+                    }
+
+                }
+
+-------------Function -------------------
+
+            // type optional params ( tham số tùy chọn)
+
+            const sum = (a: number, b: number, c?: number) => { 
+                if (c) {
+                    return a + b + c;
+                }
+                else {
+                    return a + b
+                }
+            }
+            console.log("sum = ", sum(1, 5));
+
+
+
+            // type default params ( tham số mặc định)
+
+
+                const sum = (a: number, b: number, c = false) => {
+                    if (c === true) {
+                        return a + b;
+                    }
+                    else {
+                        return a * b
+                    }
+                }
+                console.log("sum = ", sum(1, 5, true));
+
+---------------rest------------------
+                // lưu ý: trong 1 hàm chỉ có thể sử dùng 1 rest (...arr),
+                //  và phải đặt ở cuối  và chỉ thao tác với mảng
+                // const SumArray = (...arr: number[]): number => {
+                //     let sum = 0;
+                //     arr.forEach((num) => {
+                //         sum += num
+                //     })
+                //     return sum;
+                // }
+
+                // cách 1: muốn bỏ 1 mảng để tính tổng
+                // let mang: number[] = [2, 3, 4];
+                // console.log(SumArray(mang));
+
+                //cách 2 : nhập 1 mảng ( dùng toán tử copy ...aray)
+                // console.log(SumArray()); // 0
+                // console.log(SumArray(1, 2, 3)); // 6
+
+-----------Overloading----------------
+            function addNew(a: string, b: string): string;
+            function addNew(a: number, b: number): number;
+            function addNew(a: any, b: any) {
+                return a + b;
+            };
+            console.log("add 2:", addNew('anh', "bao"));
+            console.log("add 3:", addNew(1, 2))
+
+
+--------------class------------------
+                  class Person {
+                    // khai báo thuộc tính . các phạm vi truy cập biến : public(toàn phạm vi) , private(chỉ trong 
+                      class) ,protected( kết thừa), readonly(chỉ để đọc).
+                    public FistName: string; // string
+                    public LastName: string; // string
+                    private Age: number;      // string
+
+                    // readonly Name: string; // chỉ được đọc sẽ không thêm sủa , xoa đc
+
+                    // phương thức khởi tạo ̣property 
+                    constructor(FistName1: string, LastName1: string, Age1: number) {
+                        // Gán giá trị đầu vào vào các thuộc tính của lớp
+                        this.FistName = FistName1;
+                        this.LastName = LastName1;
+                        this.Age = Age1;
+
+                    }
+
+                    // getter 
+
+                    public get GetAge(): number {
+                        return this.Age
+                    }
+
+                    // serter
+                    public set SetAge(age: number) {
+                        if (age < 0 || age > 150) {
+                            throw Error("quái vật")
+                        }
+                        this.Age = age;
+                    }
+
+
+                    // phương thức lấy thông tin 
+                    getfull(): string {
+                        return `full Name : ${this.FistName} ${this.LastName} ,Age : ${this.Age}`;
+                    }
+                }
+
+                let toi = new Person("anh", "bao", 20); // khởi tạo 1 đối tượng mới từ class person
+                // console.log("Set Age :", toi.SetAge = 155); // setter
+                // console.log("Get Age :", toi.GetAge); // getter
+                console.log(toi.getfull()); // thực hiện hàm lấy thông tin
 
 
  -->
